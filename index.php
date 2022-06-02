@@ -4,6 +4,9 @@ require_once 'models/modelInterface.php';
 
 $res = Model::MODEL_ARRAY;
 
+$data = 21;
+
+
 print_r($_SERVER['REQUEST_METHOD']);
 
 if(isset($_GET['model']))
