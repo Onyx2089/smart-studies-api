@@ -1,7 +1,5 @@
 <?php
 
-//namespace Date\Const;
-
 interface Model 
 {
     const MODEL_CLASS = "class";
