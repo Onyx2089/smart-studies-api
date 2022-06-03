@@ -1,19 +1,19 @@
 <?php
 
-require_once 'models/modelInterface.php';
-
-$res = Model::MODEL_ARRAY;
-
-$data = 21;
+require_once __DIR__ .  '/models/interface/model.Interface.Model.php';
+require_once __DIR__ . '/controllers/controller.ControllerClass.php';
 
 
-print_r($_SERVER['REQUEST_METHOD']);
+//print_r($_SERVER['REQUEST_METHOD']);
 
 if(isset($_GET['model']))
 {
     if(in_array($_GET['model'], Model::MODEL_ARRAY))
     {
-        echo "go to " . $_GET['model'] . " entity";
+        $res = new ControllerClass;
+        Display::print( $res->Response() );
+        
+        //echo "go to " . $_GET['model'] . " entity";
     }
     else
     {
