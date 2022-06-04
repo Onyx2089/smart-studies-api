@@ -2,11 +2,13 @@
 
 interface ModelClass 
 {
-    const NAME_SUBJECT = "subject";
-    const NAME_HOURS = "hour";
+    const NAME_ID = "ID";
+    const NAME_SUBJECT = "NAME";
+    const NAME_HOURS = "DATE_TIME";
 
     const CLASS_ARRAY = 
     [
+        Model::TYPE_INT => self::NAME_ID,
         Model::TYPE_STRING => self::NAME_SUBJECT,
         Model::TYPE_INT => self::NAME_HOURS
     ];

@@ -13,6 +13,10 @@ interface Model extends ModelClass
         self::MODEL_PROJECT
     ];
 
+    /**
+     * 
+     */
+
     const TYPE_STRING = "string";
     const TYPE_INT = "int";
 
@@ -20,5 +24,20 @@ interface Model extends ModelClass
     [
         self::TYPE_STRING,
         self::TYPE_INT
+    ];
+
+    /**
+     * 
+     */
+
+    const WER_EQ = "eq";
+    const WER_GT = "gt";
+    const WER_LT = "lt";
+
+    const WER_ARRAY = 
+    [
+        self::WER_EQ,
+        self::WER_GT,
+        self::WER_LT,
     ];
 }

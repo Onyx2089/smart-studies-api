@@ -5,3 +5,12 @@ C - Create - POST
 R - Read - GET
 U - Update - PUT
 D - Delete - DELETE
+
+
+POST Required
+
+
+GET Required
+
+?model=str &field=str &value=str &op=str
+

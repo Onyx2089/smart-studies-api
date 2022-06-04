@@ -1,0 +1,6 @@
+{
+    "db_url": "localhost",
+    "db_name": "api_final",
+    "db_login": "root",
+    "db_password": "root"
+}

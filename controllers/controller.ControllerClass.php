@@ -7,7 +7,11 @@ class ControllerClass
 {
 
     private $method = false;
-    private $fields = false;
+    private $field = false;
+    private $value = false;
+    private $operator = false;
+
+    private $db_request = [];
 
     public function Response()
     {
@@ -50,16 +54,31 @@ class ControllerClass
         // require model(entity)YES, fields(entity fields), values(entity value), method(eq, gt, lt)
 
         // subject, hour
-        if(isset($_GET['field']))
+        if(isset($_GET['field']) && isset($_GET['value']) && isset($_GET['op']))
         {
+            Display::print("test");
+
             if(in_array($_GET['field'], ModelClass::CLASS_ARRAY))
             {
-                $this->fields = $_GET['field'];
-                return $this->successResponse("field found");
+                $this->field = $_GET['field'];
+                Display::print( $this->successResponse("field found") );
+            
+                $this->value = $_GET['value'];
+                if(in_array($_GET['op'], Model::WER_ARRAY))
+                {
+                    $this->operator = $_GET['op'];
+                    Display::print( $this->successResponse("op found") );
+                    
+                    $this->db_request = array($this->method, Model::MODEL_CLASS, $this->field, $this->value, $this->operator);
+
+                    Display::print($this->db_request);
+                }
             }
         }
 
-        //return $this->errorResponse("hey");
+        
+
+        return $this->errorResponse("all error");
     }
 
     public function putResponse()
