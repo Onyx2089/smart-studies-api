@@ -1,11 +1,12 @@
 <?php
 
 require_once __DIR__ . '/../models/interface/model.Interface.Model.php';
+require_once __DIR__ . '/../models/class/model.class.modelClassDataBase.php';
 require_once __DIR__ . '/../lib/debug/lib.debug.Display.php';
 
 class ControllerClass
 {
-
+    private $model = Model::MODEL_CLASS;
     private $method = false;
     private $field = false;
     private $value = false;
@@ -15,6 +16,7 @@ class ControllerClass
 
     public function Response()
     {
+
         $this->method = $_SERVER['REQUEST_METHOD'];
 
         if( $this->method == 'POST')
@@ -54,25 +56,26 @@ class ControllerClass
         // require model(entity)YES, fields(entity fields), values(entity value), method(eq, gt, lt)
 
         // subject, hour
-        if(isset($_GET['field']) && isset($_GET['value']) && isset($_GET['op']))
+        if(isset($_GET['field']) && isset($_GET['value']))
         {
-            Display::print("test");
+            //Display::print("test");
 
             if(in_array($_GET['field'], ModelClass::CLASS_ARRAY))
             {
                 $this->field = $_GET['field'];
-                Display::print( $this->successResponse("field found") );
+                //Display::print( $this->successResponse("field found") );
             
                 $this->value = $_GET['value'];
-                if(in_array($_GET['op'], Model::WER_ARRAY))
-                {
-                    $this->operator = $_GET['op'];
-                    Display::print( $this->successResponse("op found") );
-                    
-                    $this->db_request = array($this->method, Model::MODEL_CLASS, $this->field, $this->value, $this->operator);
+               
 
-                    Display::print($this->db_request);
+                $res = DataBase::select_fields($this->model, $this->field, $this->value);
+                
+                if($res != false)
+                {
+                    return $res;
                 }
+             
+
             }
         }
 
