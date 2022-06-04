@@ -6,7 +6,7 @@ class Display
     {
         echo "#################" . PHP_EOL;
 
-        print_r($data);
+        var_export($data);
 
         echo  PHP_EOL . "#################" . PHP_EOL;
     }
