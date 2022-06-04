@@ -11,8 +11,17 @@ if(isset($_GET['model']))
     if(in_array($_GET['model'], Model::MODEL_ARRAY))
     {
         $res = new ControllerClass;
-        Display::print( $res->Response() );
-        
+        //Display::print( $res->Response() );
+        $res = $res->Response();
+
+        if($res != false)
+        {
+            $res = json_encode($res);
+            if($res != false);
+            {
+                echo $res;
+            }
+        }
         //echo "go to " . $_GET['model'] . " entity";
     }
     else
