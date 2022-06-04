@@ -19,11 +19,15 @@ interface Model extends ModelClass
 
     const TYPE_STRING = "string";
     const TYPE_INT = "int";
+    const TYPE_DATE = "DATE";
+    const TYPE_DATE_TIME = "DATE_TIME";
 
     const TYPE_ARRAY = 
     [
         self::TYPE_STRING,
-        self::TYPE_INT
+        self::TYPE_INT,
+        self::TYPE_DATE,
+        self::TYPE_DATE_TIME
     ];
 
     /**
