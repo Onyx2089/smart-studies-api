@@ -17,6 +17,8 @@ elseif($argv[1] == $array[0])
 }
 elseif($argv[1] == $array[1])
 {
-    DataBase::join_database();
-    //$res = DataBase::select_fields(Model::MODEL_CLASS, -1);
+    //DataBase::join_database();
+    $res = DataBase::select_fields(Model::MODEL_CLASS, ModelClass::NAME_HOURS, "2022-06-26");
+
+    Display::print($res);
 }

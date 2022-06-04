@@ -8,59 +8,69 @@ class DataBase
         return json_decode( file_get_contents(__DIR__ . "/../../config/admin.json"), true);
     }
 
-    
+    public static function typeForSQL($type, $value)
+    {
+
+    }
+
     public static function join_database()
     {
         //$login = file_get_contents(__DIR__ . "/../../");
         //$login = json_decode($login, true);
 
-        //$login = self::getJsonAdmin();
+        $login = self::getJsonAdmin();
     
         #print_r($login);
         //$db = new mysqli();
         
-        //$db = new mysqli($login['db_url'], $login['db_login'], $login['db_password'], $login['db_name']);
+        $db = new mysqli($login['db_url'], $login['db_login'], $login['db_password'], $login['db_name']);
         
-        echo 'test';
-        $db = null;
-        //mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-        mysqli_report(MYSQLI_REPORT_OFF);
-        $db = new mysqli("localhost", "root", "root", "test");
-        die();
-        
+        //$db = new mysqli("localhost:3306", "root", "root", "api_final");        
 
         if($db == false)
         {
             echo "connexion impossible";
             return $db;
         }
+
     
         #echo "connexion réussie";
         return $db;
     }
     
-    public static function select_fields($table, $id)
+    public static function select_fields($table, $by, $value)
     {
         $Database = self::join_database();
         if($Database == false)
-            return -1;
+        {
+            return false;
+        }
     
         if ($Database->connect_errno) {
             printf("Échec de la connexion : %s\n", $Database->connect_error);
             exit();
         }
         #echo "connected <br>";
-        if($id == -1)
+        
+        /*if($value == -1)
+        {
             $sql = "SELECT * FROM $table";
+        }
         else
-            $sql = "SELECT * FROM $table WHERE id = $id";
+        {*/
+        
+        $sql = "SELECT * FROM $table WHERE $by =  '$value'";
+        
+        //}
         #echo $sql . "<br>";
         #$result = $Database->query($sql);
         $result = $Database->query($sql);
     
         if($result == false) 
-            return -1;
+        {
+            return false;
+        }
     
         #echo "ready <br>";
         #$data = $result->fetch_all();
@@ -76,7 +86,9 @@ class DataBase
         #print_r($data);
         #echo "</pre>";
         if(empty($data))
-            return -1;
+        {
+            return false;
+        }
     
         return $data;
     }
@@ -85,7 +97,9 @@ class DataBase
     {
         $Database = self::join_database();
         if($Database == false)
-            return -1;
+        {
+            return false;
+        }
         #else 
         if ($Database->connect_errno) {
             printf("Échec de la connexion : %s\n", $Database->connect_error);
@@ -120,7 +134,9 @@ class DataBase
         echo $Database->error; 
     
         if($result == false) 
-            return -1;
+        {
+            return false;
+        }
     
         #else
             #echo "insert succes <br>";
@@ -132,7 +148,9 @@ class DataBase
     {
         $Database = self::join_database();
         if($Database == false)
-            return -1;
+        {
+            return false;
+        }
         #else 
             #echo "connected <br>"; 
         if ($Database->connect_errno) {
@@ -152,7 +170,10 @@ class DataBase
         $sql[strlen($sql) - 1] = ' ';
     
         if($id != -1)
+        {
+
             $sql .= "WHERE id = $id";
+        }
     
         #$sql = $Database->real_escape_string($sql);
         $sql = htmlspecialchars($sql);    
@@ -161,12 +182,19 @@ class DataBase
         $result = $Database->query($sql);
     
         if($result == false)
-            return -1;
+        {
+            return false;
+        }
             //echo $Database->error;
         if($id != -1)
+        {
             return $id;
-        else 
+        }
+        else
+        {
+
             return 0;
+        } 
     
     
         #echo $Database->error;
@@ -176,7 +204,9 @@ class DataBase
     {
         $Database = self::join_database();
         if($Database == false)
-            return -1;
+        {
+            return false;
+        }
         #else 
             #echo "connected <br>"; 
         if ($Database->connect_errno) {
@@ -199,20 +229,28 @@ class DataBase
         }
     
         if($result == false)
-        return $Database->error;
+        {
+            return $Database->error;
+        }
         
         //echo $Database->error;
         if($result != null)
+        {
             return $data[0]['nbr'];
-        else 
+        }
+        else
+        {
             return 0;
+        } 
     }
     
     public static function orderBy($table, $column, $value, $method = null)
     {
         $Database = self::join_database();
         if($Database == false)
-            return -1;
+        {
+            return false;
+        }
         #else 
             #echo "connected <br>"; 
         if ($Database->connect_errno) {
@@ -223,7 +261,9 @@ class DataBase
         $sql = "SELECT $column FROM $table ORDER BY $value ";
     
         if($method != null)
+        {
             $sql .= $method;
+        }
     
         $sql = htmlspecialchars($sql);
     
@@ -235,13 +275,19 @@ class DataBase
         }
     
         if($result == false)
-        return $Database->error;
+        {
+            return $Database->error;
+        }
         
         //echo $Database->error;
         if($result != null)
+        {
             return $data;
-        else 
+        }
+        else
+        {
             return 0;
+        } 
     }
     
 }
