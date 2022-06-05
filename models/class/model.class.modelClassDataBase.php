@@ -82,7 +82,7 @@ class DataBase
         #echo "</pre>";
         if(empty($data))
         {
-            return false;
+            return array();
         }
     
         return $data;
