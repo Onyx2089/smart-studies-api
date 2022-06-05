@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/model.Interface.ModelClass.php';
 
-interface Model extends ModelClass
+interface Model
 {
     const MODEL_CLASS = "class";
     const MODEL_PROJECT = "project";
@@ -44,4 +44,10 @@ interface Model extends ModelClass
         self::WER_GT,
         self::WER_LT,
     ];
+
+    /**
+     * 
+     */
+
+    const NAME_ID = "ID";
 }

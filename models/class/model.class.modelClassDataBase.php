@@ -8,11 +8,6 @@ class DataBase
         return json_decode( file_get_contents(__DIR__ . "/../../config/admin.json"), true);
     }
 
-    public static function typeForSQL($type, $value)
-    {
-
-    }
-
     public static function join_database()
     {
         //$login = file_get_contents(__DIR__ . "/../../");
@@ -200,6 +195,34 @@ class DataBase
         #echo $Database->error;
     }
     
+    //TO DO delete_fields() function
+    public static function delete_field($table, $id)
+    {
+        $Database = self::join_database();
+        if($Database == false)
+        {
+            return false;
+        }
+
+        if ($Database->connect_errno) {
+            printf("Échec de la connexion : %s\n", $Database->connect_error);
+            exit();
+        }
+
+        $sql = "DELETE FROM $table WHERE ID = $id";
+
+        $result = $Database->query($sql);
+
+        if($result != false)
+        {
+            return $result;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public static function count_table($table, $column, $id)
     {
         $Database = self::join_database();
