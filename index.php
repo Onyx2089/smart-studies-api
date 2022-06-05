@@ -8,7 +8,7 @@ require_once __DIR__ . '/controllers/controller.ControllerClass.php';
 
 if(isset($_GET['model']))
 {
-    if(in_array($_GET['model'], Model::MODEL_ARRAY))
+    if(in_array($_GET['model'], array_keys(Model::MODEL_ARRAY)))
     {
         $res = new ControllerModel;
         $res = $res->Response($_GET['model']);
