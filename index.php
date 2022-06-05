@@ -10,22 +10,22 @@ if(isset($_GET['model']))
 {
     if(in_array($_GET['model'], Model::MODEL_ARRAY))
     {
-        $res = new ControllerClass;
-        //Display::print( $res->Response() );
-        $res = $res->Response();
+        $res = new ControllerModel;
+        $res = $res->Response($_GET['model']);
+
+        //print_r($res);
 
         if($res != false)
         {
-            $res = json_encode($res);
+            $res = json_encode($res, true);
             if($res != false);
             {
                 echo $res;
             }
         }
-        //echo "go to " . $_GET['model'] . " entity";
     }
     else
     {
-        echo "don't find";
+        echo json_encode("bad model");
     }
 }
