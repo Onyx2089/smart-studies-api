@@ -6,13 +6,21 @@ require_once __DIR__ . '/../lib/debug/lib.debug.Display.php';
 
 class ControllerModel
 {
-    private $model = Model::MODEL_CLASS;
+    private $model = false;//Model::MODEL_CLASS;
     private $method = false;
-    private $field = false;
-    private $value = false;
+    //private $field = false;
+    //private $value = false;
 
-    public function Response($data)
+    public function setModel()
     {
+        $this->model = Model::MODEL_ARRAY[$_GET['model']];
+        return $this;
+    }
+
+    public function Response()
+    {
+        $this->setModel();
+
         $this->method = $_SERVER['REQUEST_METHOD'];
 
         if( $this->method == 'POST')
@@ -43,107 +51,78 @@ class ControllerModel
 
     public function postResponse()
     {
-        //need all field for insert
-        if(sizeof(ModelClass::CLASS_ARRAY) == sizeof($_POST))
+        if(sizeof($this->model/*ModelClass::CLASS_ARRAY*/) == sizeof($_POST))
         {
             $bool = true;
             $post = $_POST;
             $columns = array();
             $fields = array();
 
-            //return array(ModelClass::CLASS_ARRAY, array_keys( $post ));
-
             foreach($post as $key => $value)
-            {
-                //Display::print($value);
-                //return array($key, $value);
-                if(!in_array($key, ModelClass::CLASS_ARRAY))
+            {            
+                if(!in_array($key, $this->model/*ModelClass::CLASS_ARRAY*/))
                 {
                     $bool = false;
                 }
-
                 $columns[] = $key;
                 $fields[] = $value;
             }
-             // TO DO CHECK THE POST VALUE TO CONTINUTE
+          
             if($bool)
             {
-
-                //return array($columns, $fields);
-                $res = DataBase::insert_fields($this->model, $columns, $fields);
+                $res = DataBase::insert_fields($_GET['model'], $columns, $fields);
 
                 if($res != false)
                 {
                     return $res;
                 }
-                //return $post;
-                //return $this->successResponse("all field is good");
             }
         }
 
-        //return array(sizeof(ModelClass::CLASS_ARRAY), sizeof($_POST));
-        //return array( $_GET, $_POST);
-        
-        //$post = $_POST;
-
-        //return $post['NAME'];
-        return $this->errorResponse("all error");
+        return array("nothing");
     }
 
     public function getResponse()
     {
-        // require model(entity)YES, fields(entity fields), values(entity value), method(eq, gt, lt)
-
-        // subject, hour
         if(isset($_GET['field']) && isset($_GET['value']))
-        {
-            //Display::print("test");
-
-            if(in_array($_GET['field'], $this->getClass()))
+        {            
+            if(in_array($_GET['field'], $this->getArray()))
             {
-                $this->field = $_GET['field'];
-                //Display::print( $this->successResponse("field found") );
-            
-                $this->value = $_GET['value'];
-               
-
-                $res = DataBase::select_fields($this->model, $this->field, $this->value);
-                
+                $res = DataBase::select_fields($_GET['model'], $_GET['field'], $_GET['value']);   
                 if($res != false)
                 {
                     return $res;
                 }
-             
-
             }
         }
 
-        
-
-        return $this->errorResponse("all error");
+        return array("nothing");
     }
 
     public function putResponse()
     {
         $get = $_GET;
 
+        
         if(isset($get['ID']))
         {
             //$id = intval( $get['ID'] );
             $id = $_GET['ID'];
-
+            
             
             if(is_int($id) || $id != 0)
             {
                 //return array('ID found', $get);
-            
+                
                 unset($get['model']);
                 if(!isset($get['model']))
                 {
+                    //return $get;
                     //return $this->successResponse("model destroy");
                     unset($get['ID']);
                     if(!isset($get['ID']))
                     {
+                        //return "hey";
                         //return array('all is destroy', $get);
                         $bool = true;
                         $columns = array();
@@ -153,7 +132,7 @@ class ControllerModel
                         {
                             //Display::print($value);
                             //return array($key, $value);
-                            if(!in_array($key, $this->getClass()))
+                            if(!in_array($key, $this->getArray()))
                             {
                                 $bool = false;
                             }
@@ -164,7 +143,7 @@ class ControllerModel
                         
                         if($bool)
                         {
-                            $res = DataBase::edit_fields($this->model, $columns, $fields, $id);
+                            $res = DataBase::edit_fields($_GET['model'], $columns, $fields, $id);
 
                             if($res)
                             {
@@ -177,7 +156,7 @@ class ControllerModel
         }
  
 
-        return $this->errorResponse("all error");
+        return array("nothing");
     }
 
     public function deleteResponse()
@@ -189,7 +168,7 @@ class ControllerModel
             $id = $get['ID'];
             if(is_int($id) || $id != 0)
             {
-                $res = DataBase::delete_field($this->model, $id);
+                $res = DataBase::delete_field($_GET['model'], $id);
 
                 if($res != false)
                 {
@@ -220,9 +199,9 @@ class ControllerModel
      * 
      */
 
-    public static function getClass()
+    public function getArray()
     {
-        $array = ModelClass::CLASS_ARRAY;
+        $array = $this->model;
         array_unshift($array, Model::NAME_ID);
 
         return $array;
