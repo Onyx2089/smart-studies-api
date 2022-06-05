@@ -1,17 +1,23 @@
 <?php
 
 require_once __DIR__ . '/model.Interface.ModelClass.php';
+require_once __DIR__ . '/model.interface.ModelProfil.php';
+require_once __DIR__ . '/model.Interface.ModelProject.php';
 
 interface Model
 {
     const MODEL_CLASS = "class";
+    const MODEL_PROFIL = "profil";
     const MODEL_PROJECT = "project";
 
     const MODEL_ARRAY = 
     [
-        self::MODEL_CLASS,
-        self::MODEL_PROJECT
+        self::MODEL_CLASS => ModelClass::CLASS_ARRAY,
+        self::MODEL_PROFIL => ModelProfil::PROFIL_ARRAY,
+        self::MODEL_PROJECT => ModelProject::PROJECT_ARRAY
     ];
+
+
 
     /**
      * 

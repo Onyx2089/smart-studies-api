@@ -1,14 +1,15 @@
 <?php 
 
-interface ModelClass 
+interface ModelProject 
 {
-    const NAME_ID = "ID";
-    const NAME_SUBJECT = "NAME";
-    const NAME_HOURS = "TIME";
+    const NAME = "NAME";
+    const DEAD_LINE = "DEADLINE";
+    const CURSUS = "CURSUS";
 
-    const CLASS_ARRAY = 
+    const PROJECT_ARRAY = 
     [
-        Model::TYPE_STRING => self::NAME_SUBJECT,
-        Model::TYPE_DATE_TIME => self::NAME_HOURS
+        self::NAME,
+        self::DEAD_LINE,
+        self::CURSUS
     ];
 }
