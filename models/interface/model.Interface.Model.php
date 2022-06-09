@@ -54,6 +54,28 @@ interface Model
     /**
      * 
      */
-
+    
     const NAME_ID = "ID";
+
+    /**
+     * 
+     */
+
+    const STAT_ADMIN = 1000;
+    const STAT_STUDENT = 2000;
+
+    const ARRAY_STAT = 
+    [
+        self::STAT_ADMIN,
+        self::STAT_STUDENT
+    ];
+
+    const CURSUS_PRG = 3000;
+    const CURSUS_MKT = 4000;
+
+    const ARRAY_CURSUS = 
+    [
+        self::CURSUS_PRG,
+        self::CURSUS_MKT
+    ];
 }
