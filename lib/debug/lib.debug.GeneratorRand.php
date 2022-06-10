@@ -57,7 +57,7 @@ class GeneratorRAnd implements IGeneratorRand
             }
         }
 
-        echo $nbrInsert . ' as been insert';
+        echo $nbrInsert . ' as been insert' . PHP_EOL;
     }
 
     public static function randomProject()
@@ -99,7 +99,7 @@ class GeneratorRAnd implements IGeneratorRand
             }
         }
 
-        echo $nbrInsert . ' as been insert';
+        echo $nbrInsert . ' as been insert'  . PHP_EOL;
     }
 
     public static function listDate($dayNbr)
