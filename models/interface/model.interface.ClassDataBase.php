@@ -42,4 +42,13 @@ interface IDataBase
         self::LT => self::LT_SYNTAX,
         self::LIKE => self::LIKE
     ];
+
+    const ORDER_BY_ASC = "OBA";
+    const ORDER_BY_DESC = "OBD";
+
+    const ARRAY_ORDER_BY = 
+    [
+        self::ORDER_BY_ASC,
+        self::ORDER_BY_DESC
+    ];
 }
