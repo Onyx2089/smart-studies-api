@@ -100,6 +100,14 @@ class DataBase implements IAdmin, IDataBase
             }
         }
     }
+
+    public static function orderBySql($sort)
+    {
+        if(is_array($sort) && sizeof($sort) == 2)
+        {
+            if()
+        }
+    }
     
     public static function insert_fields($table, $columns, $fields)
     {
