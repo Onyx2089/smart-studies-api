@@ -9,7 +9,7 @@ class GeneratorRAnd implements IGeneratorRand
     public static function randomClass()
     {
         $nbrInsert = 0;
-        $date = self::listDate();    
+        $date = self::listDate(self::DAY_NBR);    
         $time = self::listTime();
         $duration = self::listDuring();
         
@@ -37,6 +37,7 @@ class GeneratorRAnd implements IGeneratorRand
                      * 
                      */
 
+                    $fields[] = rand(10, 400);
                     $fields[] = $today . ' ' . self::randArray($time);
                     $fields[] = self::randArray($duration);
                     $fields[] = $cursus;
@@ -44,7 +45,8 @@ class GeneratorRAnd implements IGeneratorRand
                     print_r($fields);
 
                     $classCount++;
-                    
+                    //print_r($columns);
+                    //die();
                     $res = DataBase::insert_fields(Model::MODEL_CLASS, $columns, $fields);
                     //die();
                     if($res != false)
@@ -58,7 +60,49 @@ class GeneratorRAnd implements IGeneratorRand
         echo $nbrInsert . ' as been insert';
     }
 
-    public static function listDate()
+    public static function randomProject()
+    {
+        $nbrInsert = 0;
+        $date = self::listDate(self::DAY_POSSIBILITY);
+
+        $columns = ModelProject::PROJECT_ARRAY;
+
+        foreach(Model::ARRAY_CURSUS as $cursus)
+        {
+            $projectCount = 0;
+            while($projectCount != self::PROJECT_BY_CURSUS)
+            {
+                $fields = array();
+
+                if($cursus == Model::CURSUS_PRG)
+                {
+                    $fields[] = self::randArray(self::ARRAY_PROJECT_PRG);
+                }
+                elseif($cursus == Model::CURSUS_MKT)
+                {
+                    $fields[] = self::randArray(self::ARRAY_PROJECT_MKT);
+                }
+
+                $fields[] = self::randArray($date);
+                $fields[] = $cursus;
+
+                print_r($fields);
+
+                $projectCount++;
+
+                $res = DataBase::insert_fields(Model::MODEL_PROJECT, $columns, $fields);
+
+                if($res != false)
+                {
+                    $nbrInsert++;
+                }
+            }
+        }
+
+        echo $nbrInsert . ' as been insert';
+    }
+
+    public static function listDate($dayNbr)
     {
         $date = new DateTime();
         $dayNbr = self::DAY_NBR;

@@ -68,7 +68,55 @@ interface IGeneratorRAnd
 
     // PROJECT
 
+
+
     const WEB_WAR = "web war";
-    // adventure neurone rtv game_of_life puissance_4 scandir icone_of_sims 
-    // redtracker red_steel assembleur 
+    const ADVENTURE = "adventure";
+    const NEURONE = "neurone";
+    const RTV = "rtv";
+    const GAME_OF_LIFE = "game of life";
+    const REDTRACKER = "redctracker";
+    const ICONE_OF_SIMS = "icon of sims";
+    const ASSEMBLEUR = "assembleur";
+
+    const ARRAY_PROJECT_PRG = 
+    [
+        self::WEB_WAR,
+        self::ADVENTURE,
+        self::NEURONE,
+        self::RTV,
+        self::GAME_OF_LIFE,
+        self::REDTRACKER,
+        self::ICONE_OF_SIMS,
+        self::ASSEMBLEUR
+    ];
+
+    /**
+     * 
+     */
+
+    const PROJECT_BY_CURSUS = 15;  
+
+    const DAY_POSSIBILITY = 30;
+
+    const APOLLO = "apollo";
+    const PHOENIX = "phoenix";
+    const INSTANT_GALAXY = "instant Galaxy";
+    const NITRO = "nitro";
+    const PROJECT_X = "project X";
+    const ORION = "orion";
+    const QUADRO = "quadro";
+    const SPACE_X = "space X";
+
+    const ARRAY_PROJECT_MKT = 
+    [
+        self::APOLLO,
+        self::PHOENIX,
+        self::INSTANT_GALAXY,
+        self::NITRO,
+        self::PROJECT_X,
+        self::ORION,
+        self::QUADRO,
+        self::SPACE_X
+    ];
 }
