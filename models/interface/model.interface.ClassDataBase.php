@@ -21,4 +21,25 @@ interface IDataBase
         self::TABLE_PROFIL => self::DIR_SQL . 'profil.sql',
         self::TABLE_PROJECT => self::DIR_SQL . 'project.sql'
     ];
+
+    /**
+     * 
+     */
+
+    const EQ = "EQ";
+    const GT = "GT";
+    const LT = "LT";
+    const LIKE = "LIKE";
+
+    const EQ_SYNTAX = "=";
+    const GT_SYNTAX = ">";
+    const LT_SYNTAX = "<";
+
+    const ARRAY_OPERATOR = 
+    [
+        self::EQ => self::EQ_SYNTAX,
+        self::GT => self::GT_SYNTAX,
+        self::LT => self::LT_SYNTAX,
+        self::LIKE => self::LIKE
+    ];
 }

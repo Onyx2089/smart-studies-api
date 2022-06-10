@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../../config/config.IAdmin.php';
 require_once __DIR__ . '/../interface/model.interface.ClassDataBase.php';
 
-class DataBase implements IAdmin
+class DataBase implements IAdmin, IDataBase
 {
 
     public static function getJsonAdmin()
@@ -32,31 +32,72 @@ class DataBase implements IAdmin
         return $Database;
     }
     
-    public static function select_fields($table, $by, $value)
+    public static function select_fields($table, $fields, $op, $values, $ob = false)
     {
         if(($Database = self::join_database()))
         {
-            $sql = "SELECT * FROM $table WHERE $by =  '$value'";
-            $result = $Database->query($sql);
-        
-            if($result == false) 
+            if(is_array($fields) && is_array($op) && is_array($values))
             {
-                return false;
-            }
-        
-            $data =  array();
-        
-            while ($row = $result->fetch_assoc()) 
-            {
-                $data[] = $row;
-            }
+                //echo "in ";
+                if(sizeof($fields) == sizeof($op) && sizeof($op) == sizeof($values))
+                {   
+                    $whereCount = 0;
+                    $data = array();
 
-            if(empty($data))
-            {
-                return array();
+                    while($whereCount != sizeof($fields))
+                    {
+                        if($op[$whereCount] == self::LIKE)
+                        {
+                            //echo "like";
+                            //die();
+                            $data[] = $fields[$whereCount] . ' ' . self::ARRAY_OPERATOR[$op[$whereCount]] . ' \'%' . $values[$whereCount] . '%\'';
+                        }
+                        else
+                        {
+                            $data[] = $fields[$whereCount] . ' ' . self::ARRAY_OPERATOR[$op[$whereCount]] . ' \'' . $values[$whereCount] . '\'';
+                        }
+                        //echo $fields[$whereCount] . ' ' . $op[$whereCount] . ' ' . $values[$whereCount];
+                        $whereCount++;
+                    }
+                    
+                    $sql = "SELECT * FROM $table WHERE ";
+                    
+                    $sql .= implode(" AND ", $data);
+
+                    //print_r($data);
+                    //print_r($fields);
+
+                    //$sql = "here";
+                    echo $sql . PHP_EOL;
+
+                    //die();
+                    $result = $Database->query($sql);
+                
+                    if($result == false) 
+                    {
+                        return false;
+                    }
+                
+                    $data =  array();
+                
+                    while ($row = $result->fetch_assoc()) 
+                    {
+                        $data[] = $row;
+                    }
+
+                    if(empty($data))
+                    {
+                        return array();
+                    }
+                
+                    return $data;
+                }
+                else
+                {
+                    echo 'nop';
+                }
+                echo PHP_EOL;
             }
-        
-            return $data;
         }
     }
     
@@ -289,8 +330,8 @@ class DataBase implements IAdmin
         {
             if(in_array($table, IDataBase::ARRAY_TABLE))
             {
-                $login = self::getJsonAdmin();
-                $sql = "SHOW TABLES FROM " . $login['db_name'];
+                //$login = self::getJsonAdmin();
+                $sql = "SHOW TABLES FROM " . self::NAME;
                 $result = $Database->query($sql);
                 $data =  array();
 
