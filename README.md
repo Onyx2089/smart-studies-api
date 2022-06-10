@@ -1,10 +1,10 @@
 Opérations HTTP 
 CRUD
 
-C - Create - POST
-R - Read - GET
-U - Update - PUT
-D - Delete - DELETE
+C - Create - POST\n
+R - Read - GET\n
+U - Update - PUT\n
+D - Delete - DELETE\n
 
 
 ## Utilisation
