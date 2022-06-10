@@ -122,6 +122,7 @@ class DataBase
         }
         $sql[strlen($sql) - 2] = ') EOF'; 
     
+        
         #$sql = $Database->real_escape_string($sql);
         
         //WARNING htmlspecialcharsrr()
