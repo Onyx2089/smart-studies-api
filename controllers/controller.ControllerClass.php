@@ -84,8 +84,37 @@ class ControllerModel
 
     public function getResponse()
     {
-        if(isset($_GET['field']) && isset($_GET['value']))
-        {            
+        if(isset($_GET['field']) && isset($_GET['op']) && isset($_GET['value']))
+        {
+
+            $fields = json_decode($_GET['field']);
+            $ops = json_decode($_GET['op']);
+            $values = json_decode($_GET['value']);
+            $sort = false;
+
+            //return $fields;
+
+            if(isset($_GET['sort']))
+            {
+                $sort = json_decode($_GET['sort']);
+                if(!is_array($sort))
+                {
+                    $sort = false;
+                }
+            }
+
+            
+            if(is_array($fields) || is_array($ops) || is_array($values))
+            {
+                $res = DataBase::select_fields($_GET['model'], $fields, $ops, $values, $sort);
+                //return array($fields, $ops, $values);
+                if($res != false)
+                {
+                    return $res;
+                }
+            }
+
+            /*      
             if(in_array($_GET['field'], $this->getArray()))
             {
                 $res = DataBase::select_fields($_GET['model'], $_GET['field'], $_GET['value']);   
@@ -94,9 +123,10 @@ class ControllerModel
                     return $res;
                 }
             }
+            */
         }
 
-        return array("nothing");
+        return array("nothing herer");
     }
 
     public function putResponse()
