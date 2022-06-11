@@ -45,10 +45,12 @@ interface IDataBase
 
     const ORDER_BY_ASC = "OBA";
     const ORDER_BY_DESC = "OBD";
+    const ASC = "ASC";
+    const DESC = "DESC";
 
     const ARRAY_ORDER_BY = 
     [
-        self::ORDER_BY_ASC,
-        self::ORDER_BY_DESC
+        self::ORDER_BY_ASC => self::ASC,
+        self::ORDER_BY_DESC => self::DESC
     ];
 }

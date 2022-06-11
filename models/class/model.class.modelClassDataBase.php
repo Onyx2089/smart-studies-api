@@ -32,7 +32,7 @@ class DataBase implements IAdmin, IDataBase
         return $Database;
     }
     
-    public static function select_fields($table, $fields, $op, $values, $ob = false)
+    public static function select_fields($table, $fields, $op, $values, $sort = false)
     {
         if(($Database = self::join_database()))
         {
@@ -43,7 +43,7 @@ class DataBase implements IAdmin, IDataBase
                 {   
                     $whereCount = 0;
                     $data = array();
-
+                    
                     while($whereCount != sizeof($fields))
                     {
                         if($op[$whereCount] == self::LIKE)
@@ -61,15 +61,19 @@ class DataBase implements IAdmin, IDataBase
                     }
                     
                     $sql = "SELECT * FROM $table WHERE ";
-                    
                     $sql .= implode(" AND ", $data);
-
+                    
+                    //return $sort;
+                    $sql .= self::orderBySql($sort);
+                    
                     //print_r($data);
                     //print_r($fields);
-
+                    
                     //$sql = "here";
-                    echo $sql . PHP_EOL;
-
+                    //return $sql;
+                    //return $sql . PHP_EOL;
+                    //die();
+                    
                     //die();
                     $result = $Database->query($sql);
                 
@@ -103,9 +107,16 @@ class DataBase implements IAdmin, IDataBase
 
     public static function orderBySql($sort)
     {
+        //return gettype($sort);
+        //$sort = json_decode($sort);
         if(is_array($sort) && sizeof($sort) == 2)
         {
-            if()
+            if(array_key_exists($sort[1], self::ARRAY_ORDER_BY))
+            {              
+                //print_r($sort);
+                return " ORDER BY " . $sort[0] . ' ' . self::ARRAY_ORDER_BY[$sort[1]];
+                //echo $sql . PHP_EOL;
+            }
         }
     }
     
