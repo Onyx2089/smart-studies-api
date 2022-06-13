@@ -15,6 +15,7 @@ GET field in encoded array
 GET op in encoded array
 GET value in encoded array
 
+---------------------------------------
 
 METHOD POST
 
@@ -28,6 +29,7 @@ METHOD DELETE
 
 GET the id of the entry to delete
 
+-----------------------------------------
 
 If necessary refer to the file web_final/test/model/script.model.scriptModelApiCall.php
 
