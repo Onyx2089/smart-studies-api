@@ -1,12 +1,12 @@
 # API_FINAL
 
-## Installation
+## Install
 
 Configure the desired user for the connection to the database in config/config.IAdmin.php
 
 run all the scripts located in the script/model/install folder and then script/model/populate
 
-## Utilisation
+## Use
 
 Each method needs a model in GET
 
