@@ -10,12 +10,16 @@ run all the scripts located in the script/model/install folder and then script/m
 
 Each method needs a model in GET
 
+---------------------------------------
+
 METHOD GET
+
 GET field in encoded array
+
 GET op in encoded array
+
 GET value in encoded array
 
----------------------------------------
 
 METHOD POST
 
