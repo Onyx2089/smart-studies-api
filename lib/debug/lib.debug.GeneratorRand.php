@@ -102,6 +102,8 @@ class GeneratorRAnd implements IGeneratorRand
         echo $nbrInsert . ' as been insert'  . PHP_EOL;
     }
 
+    
+
     public static function listDate($dayNbr)
     {
         $date = new DateTime();
