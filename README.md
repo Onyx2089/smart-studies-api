@@ -15,13 +15,17 @@ GET field in encoded array
 GET op in encoded array
 GET value in encoded array
 
+
 METHOD POST
+
 POST all values of the mandatory class
 
 METHOD PUT
+
 GET id with all values changed
 
 METHOD DELETE
+
 GET the id of the entry to delete
 
 
