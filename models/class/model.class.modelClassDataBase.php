@@ -370,5 +370,34 @@ class DataBase implements IAdmin, IDataBase
             }
         }
     }
+
+    public static function insertSQL($table, $file)
+    {
+        if(($Database = self::join_database()))
+        {
+            if(file_exists(self::DIR_SQL . "$file.sql"))
+            {
+                $sql = file_get_contents(self::DIR_SQL . "$file.sql");
+
+                //echo $sql;
+                if(self::existTable($table))
+                {
+                    if($Database->query($sql) === TRUE)
+                    {
+                        echo "file $file.sql insert";
+                    }
+                    else
+                    {
+                        echo "error file $file.sql";
+                    }
+                }
+                else
+                {
+                    echo $table . ' does\'t exist';
+                }
+                echo PHP_EOL;
+            }
+        }
+    }
     
 }
