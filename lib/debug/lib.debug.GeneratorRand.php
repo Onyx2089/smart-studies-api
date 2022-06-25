@@ -1,8 +1,8 @@
 <?php
 
-require_once __DIR__ . '/../../models/interface/model.Interface.Model.php';
-require_once __DIR__ . '/../interface/lib.interface.IGeneratorRand.php';
-require_once __DIR__ . '/../../models/class/model.class.modelClassDataBase.php';
+require_once __DIR__ . '/../../model/interface/model.Interface.Model.php';
+require_once __DIR__ . '/lib.debug.IGeneratorRand.php';
+require_once __DIR__ . '/../../model/class/model.class.DataBase.php'; //'/../../model/class/model.class.modelClassDataBase.php';
 
 class GeneratorRAnd implements IGeneratorRand
 {
