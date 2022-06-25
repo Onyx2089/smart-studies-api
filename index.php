@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__ .  '/models/interface/model.Interface.Model.php';
-require_once __DIR__ . '/controllers/controller.ControllerClass.php';
+require_once __DIR__ . '/model/interface/model.Interface.Model.php';
+require_once __DIR__ . '/controller/controller.Controller.php';
 
 
 //print_r($_SERVER['REQUEST_METHOD']);
@@ -10,8 +10,11 @@ if(isset($_GET['model']))
 {
     if(in_array($_GET['model'], array_keys(Model::MODEL_ARRAY)))
     {
-        $res = new ControllerModel;
+        //echo 'here';
+
+        $res = new Controller;
         $res = $res->Response($_GET['model']);
+
 
         //print_r($res);
 
