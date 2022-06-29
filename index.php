@@ -2,33 +2,36 @@
 
 require_once __DIR__ . '/model/interface/model.Interface.Model.php';
 require_once __DIR__ . '/controller/controller.Controller.php';
+require_once __DIR__ . '/config/config.IAdmin.php';
 
-
-//print_r($_SERVER['REQUEST_METHOD']);
-
-if(isset($_GET['model']))
+if(isset($_GET['key']))
 {
-    if(in_array($_GET['model'], array_keys(Model::MODEL_ARRAY)))
+    if($_GET['key'] == IAdmin::API_KEY)
     {
-        //echo 'here';
-
-        $res = new Controller;
-        $res = $res->Response($_GET['model']);
-
-
-        //print_r($res);
-
-        if($res != false)
+        unset($_GET['key']);
+        if(isset($_GET['model']))
         {
-            $res = json_encode($res, true);
-            if($res != false);
+            if(in_array($_GET['model'], array_keys(Model::MODEL_ARRAY)))
             {
-                echo $res;
+
+                $res = new Controller;
+                $res = $res->Response($_GET['model']);
+
+                if($res != false)
+                {
+                    $res = json_encode($res, true);
+                    if($res != false);
+                    {
+                        echo $res;
+                    }
+                }
+            }
+            else
+            {
+                echo json_encode("bad model");
             }
         }
     }
-    else
-    {
-        echo json_encode("bad model");
-    }
+   
 }
+

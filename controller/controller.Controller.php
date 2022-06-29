@@ -165,14 +165,16 @@ class Controller
                             if(!in_array($key, $this->getArray()))
                             {
                                 $bool = false;
+                                //return $key;
                             }
-            
+                            
                             $columns[] = $key;
                             $fields[] = $value;
                         }
-                        
+                        //return $get;
                         if($bool)
                         {
+                            //return 'tst';
                             $res = DataBase::edit_fields($_GET['model'], $columns, $fields, $id);
 
                             if($res)
