@@ -1,15 +1,13 @@
 <?php
 
 require_once __DIR__ . '/../model/interface/model.Interface.Model.php';
-require_once __DIR__ . '/../model/class/model.class.DataBase.php'; //'/../models/class/model.class.modelClassDataBase.php';
+require_once __DIR__ . '/../model/class/model.class.DataBase.php'; 
 require_once __DIR__ . '/../lib/debug/lib.debug.Display.php';
 
 class Controller
 {
-    private $model = false;//Model::MODEL_CLASS;
+    private $model = false;
     private $method = false;
-    //private $field = false;
-    //private $value = false;
 
     public function setModel()
     {
@@ -51,7 +49,7 @@ class Controller
 
     public function postResponse()
     {
-        if(sizeof($this->model/*ModelClass::CLASS_ARRAY*/) == sizeof($_POST))
+        if(sizeof($this->model) == sizeof($_POST))
         {
             $bool = true;
             $post = $_POST;
@@ -60,7 +58,7 @@ class Controller
 
             foreach($post as $key => $value)
             {            
-                if(!in_array($key, $this->model/*ModelClass::CLASS_ARRAY*/))
+                if(!in_array($key, $this->model))
                 {
                     $bool = false;
                 }
@@ -92,7 +90,7 @@ class Controller
             $values = json_decode($_GET['value']);
             $sort = false;
 
-            //return $fields;
+         
 
             if(isset($_GET['sort']))
             {
@@ -107,23 +105,14 @@ class Controller
             if(is_array($fields) || is_array($ops) || is_array($values))
             {
                 $res = DataBase::select_fields($_GET['model'], $fields, $ops, $values, $sort);
-                //return array($fields, $ops, $values);
+               
                 if($res != false)
                 {
                     return $res;
                 }
             }
 
-            /*      
-            if(in_array($_GET['field'], $this->getArray()))
-            {
-                $res = DataBase::select_fields($_GET['model'], $_GET['field'], $_GET['value']);   
-                if($res != false)
-                {
-                    return $res;
-                }
-            }
-            */
+    
         }
 
         return array("nothing herer");
@@ -136,45 +125,42 @@ class Controller
         
         if(isset($get['ID']))
         {
-            //$id = intval( $get['ID'] );
+           
             $id = $_GET['ID'];
             
             
             if(is_int($id) || $id != 0)
             {
-                //return array('ID found', $get);
+               
                 
                 unset($get['model']);
                 if(!isset($get['model']))
                 {
-                    //return $get;
-                    //return $this->successResponse("model destroy");
+             
                     unset($get['ID']);
                     if(!isset($get['ID']))
                     {
-                        //return "hey";
-                        //return array('all is destroy', $get);
+                        
                         $bool = true;
                         $columns = array();
                         $fields = array();
 
                         foreach($get as $key => $value)
                         {
-                            //Display::print($value);
-                            //return array($key, $value);
+                           
                             if(!in_array($key, $this->getArray()))
                             {
                                 $bool = false;
-                                //return $key;
+                               
                             }
                             
                             $columns[] = $key;
                             $fields[] = $value;
                         }
-                        //return $get;
+                      
                         if($bool)
                         {
-                            //return 'tst';
+                        
                             $res = DataBase::edit_fields($_GET['model'], $columns, $fields, $id);
 
                             if($res)
@@ -207,7 +193,7 @@ class Controller
                     return $res;
                 }
                 return $res;
-                //return $this->successResponse("id found & compatible");
+               
             }
         }
         return $this->errorResponse("all error");

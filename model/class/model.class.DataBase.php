@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../../config/config.IAdmin.php';
-require_once __DIR__ . '/model.class.IDataBase.php'; //'/../interface/model.interface.ClassDataBase.php';
+require_once __DIR__ . '/model.class.IDataBase.php'; 
 
 class DataBase implements IAdmin, IDataBase
 {
@@ -15,7 +15,7 @@ class DataBase implements IAdmin, IDataBase
     {
         $login = self::getJsonAdmin();
 
-        //$db = new mysqli($login['db_url'], $login['db_login'], $login['db_password'], $login['db_name']);
+        
         $Database = new mysqli(self::URL, self::LOGIN, self::PASSWORD, self::NAME);
 
         if($Database == false)
@@ -24,7 +24,7 @@ class DataBase implements IAdmin, IDataBase
         }
     
         if ($Database->connect_errno) {
-            //printf("Échec de la connexion : %s\n", $Database->connect_error);
+            printf("Échec de la connexion : %s\n", $Database->connect_error);
             exit();
         }
 
@@ -38,7 +38,7 @@ class DataBase implements IAdmin, IDataBase
         {
             if(is_array($fields) && is_array($op) && is_array($values))
             {
-                //echo "in ";
+               
                 if(sizeof($fields) == sizeof($op) && sizeof($op) == sizeof($values))
                 {   
                     $whereCount = 0;
@@ -48,33 +48,24 @@ class DataBase implements IAdmin, IDataBase
                     {
                         if($op[$whereCount] == self::LIKE)
                         {
-                            //echo "like";
-                            //die();
+                         
                             $data[] = $fields[$whereCount] . ' ' . self::ARRAY_OPERATOR[$op[$whereCount]] . ' \'%' . $values[$whereCount] . '%\'';
                         }
                         else
                         {
                             $data[] = $fields[$whereCount] . ' ' . self::ARRAY_OPERATOR[$op[$whereCount]] . ' \'' . $values[$whereCount] . '\'';
                         }
-                        //echo $fields[$whereCount] . ' ' . $op[$whereCount] . ' ' . $values[$whereCount];
+                    
                         $whereCount++;
                     }
                     
                     $sql = "SELECT * FROM $table WHERE ";
                     $sql .= implode(" AND ", $data);
                     
-                    //return $sort;
+                  
                     $sql .= self::orderBySql($sort);
                     
-                    //print_r($data);
-                    //print_r($fields);
-                    
-                    //$sql = "here";
-                    //return $sql;
-                    //return $sql . PHP_EOL;
-                    //die();
-                    
-                    //die();
+         
                     $result = $Database->query($sql);
                 
                     if($result == false) 
@@ -107,15 +98,14 @@ class DataBase implements IAdmin, IDataBase
 
     public static function orderBySql($sort)
     {
-        //return gettype($sort);
-        //$sort = json_decode($sort);
+    
         if(is_array($sort) && sizeof($sort) == 2)
         {
             if(array_key_exists($sort[1], self::ARRAY_ORDER_BY))
             {              
-                //print_r($sort);
+               
                 return " ORDER BY " . $sort[0] . ' ' . self::ARRAY_ORDER_BY[$sort[1]];
-                //echo $sql . PHP_EOL;
+              
             }
         }
     }
@@ -349,7 +339,7 @@ class DataBase implements IAdmin, IDataBase
         {
             if(in_array($table, IDataBase::ARRAY_TABLE))
             {
-                //$login = self::getJsonAdmin();
+              
                 $sql = "SHOW TABLES FROM " . self::NAME;
                 $result = $Database->query($sql);
                 $data =  array();
@@ -379,7 +369,7 @@ class DataBase implements IAdmin, IDataBase
             {
                 $sql = file_get_contents(self::DIR_SQL . "$file.sql");
 
-                //echo $sql;
+             
                 if(self::existTable($table))
                 {
                     if($Database->query($sql) === TRUE)

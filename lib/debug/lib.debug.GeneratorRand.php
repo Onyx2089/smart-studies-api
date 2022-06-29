@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../../model/interface/model.Interface.Model.php';
 require_once __DIR__ . '/lib.debug.IGeneratorRand.php';
-require_once __DIR__ . '/../../model/class/model.class.DataBase.php'; //'/../../model/class/model.class.modelClassDataBase.php';
+require_once __DIR__ . '/../../model/class/model.class.DataBase.php';
 
 class GeneratorRAnd implements IGeneratorRand
 {
@@ -45,10 +45,9 @@ class GeneratorRAnd implements IGeneratorRand
                     print_r($fields);
 
                     $classCount++;
-                    //print_r($columns);
-                    //die();
+                    
                     $res = DataBase::insert_fields(Model::MODEL_CLASS, $columns, $fields);
-                    //die();
+                  
                     if($res != false)
                     {
                         $nbrInsert++;
