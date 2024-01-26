@@ -1,60 +1,39 @@
-# API_FINAL
+# Smart Studies - API
 
-## Install
+Bienvenue dans la documentation de l'API de Smart Studies, qui alimente la logique de données derrière la plateforme éducative.
 
-Configure the desired user for the connection to the database in config/config.IAdmin.php
+## Endpoints
 
-run all the scripts located in the script/model/install folder and then script/model/populate
+### Étudiant
 
-## Use
+- `GET /etudiant/cours` : Récupère la liste des cours pour un étudiant.
+- `GET /etudiant/projets` : Récupère la liste des projets assignés à un étudiant.
+- `GET /etudiant/notes` : Récupère les notes d'un étudiant.
 
-Each method needs a model in GET
+### Professeur
 
----------------------------------------
+- `GET /professeur/cours` : Récupère la liste des cours gérés par un professeur.
+- `GET /professeur/projets` : Récupère la liste des projets gérés par un professeur.
+- `POST /professeur/evaluer` : Évalue un travail soumis par un étudiant.
 
-METHOD GET
+## Authentification
 
-GET field in encoded array
+L'API utilise le protocole OAuth pour l'authentification. Assurez-vous de fournir un jeton d'accès valide dans l'en-tête de chaque requête.
 
-GET op in encoded array
+## Installation
 
-GET value in encoded array
+1. Clonez ce dépôt.
+2. Exécutez `npm install` pour installer les dépendances.
+3. Configurez les fichiers d'environnement avec les clés d'API nécessaires.
 
+## Développement
 
-METHOD POST
+- Utilisez `npm run dev` pour lancer le serveur de développement.
+- Accédez à [http://localhost:5000](http://localhost:5000) dans votre navigateur.
 
-POST all values of the mandatory class
+## Contribution
 
-METHOD PUT
-
-GET id with all values changed
-
-METHOD DELETE
-
-GET the id of the entry to delete
-
------------------------------------------
-
-If necessary refer to the file web_final/test/model/script.model.scriptModelApiCall.php
-
-
-# NOT FINISH
-
-Opérations HTTP 
-CRUD
-
-C - Create - POST
-R - Read - GET
-U - Update - PUT
-D - Delete - DELETE
-
-
-## Explication
-
-POST Required
-
-
-GET Required
-
-?model=str &field=str &value=str &op=str
-
+1. Fork du projet.
+2. Créez une branche pour votre fonctionnalité (`git checkout -b fonctionnalite/nouvelle-fonctionnalite`).
+3. Commit et push de vos modifications (`git commit -m 'Ajout d'une nouvelle fonctionnalité'`).
+4. Créez une demande d'extraction (pull request).
